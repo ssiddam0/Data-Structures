@@ -1,0 +1,100 @@
+//Program - assignment1_sowjanya.cpp
+//This program is used to calculate dot product of 2 vectors using linked list implementation.
+#include<iostream>
+using namespace std;
+#ifndef null // define null as zero if not defined
+#define null 0
+#endif;
+//struct with index, value and next element
+struct node{
+int index,val;
+struct node* next;
+node(int a,int b, node* temp){
+index = a;
+val = b;
+next = temp;}
+};
+typedef struct node* link;
+
+//Method definitions
+void display(node* head); // display the linked list
+node* create(int n);        // create linked list
+int dotproduct(node*,node*); //calculate dot product
+
+//main method
+int main(){
+    int n;
+    link A,B;
+    cout<<"Enter number of elements to be stored in Vector A"<<endl;
+    cin>>n;
+    A = create(n); // create linked list A
+    cout<<"*********************************"<<endl;
+    cout<<"Enter number of elements to be stored in Vector B"<<endl;
+    cin>>n;
+    B=create(n); // create linked list B
+    cout<<"*********************************"<<endl;
+    cout<<"Vector A values are"<<endl;
+    display(A);
+    cout<<"*********************************"<<endl;
+    cout<<"Vector B values are"<<endl;
+    display(B);
+    cout<<"*********************************"<<endl;
+    // Call the dotproduct() method and print the value
+    cout<<"Dot product of vector A and B is "<<dotproduct(A,B);
+    cin.get();
+
+}
+node* create(int n)
+{
+    int index,value;
+    link head;
+    if(n==0)
+        return null;
+    for(int i=0;i<n;i++){
+        link p;
+        cout<<"Enter index,value for node "<<i+1<<endl;
+        cin>>index;
+        cin>>value;
+        while(index==0 || value==0)
+        {
+            cout<<"***Please enter only non-zero elements for index and values***"<<endl;
+            cin>>index;
+            cin>>value;
+        }
+        if(n==1 || i==0)
+           head= new node(index, value, NULL);
+        else{
+            p=head;
+            while(p->next!=null)
+                p=p->next;
+            p->next = new node(index, value,null);
+        }
+    }
+    return head;
+}
+void display(node* head){
+    link p;
+    p=head;
+    while(p!=null){
+        cout<<p->index<<"\t"<<p->val<<endl;
+        p=p->next;
+    }
+}
+int dotproduct(node* A, node* B){
+    int product = 0;
+    link p,q;
+    p=A;
+    q=B;
+    while(p!=null && q!=null){
+        if(p->index == q->index){
+            product+=((p->val)*(q->val));
+            p=p->next;
+            q=q->next;
+         }
+        else if((p->index)<(q->index))
+            p=p->next;
+        else
+            q=q->next;
+    }
+    return product;
+}
