@@ -1,0 +1,94 @@
+//Program - lab2_sowjanya.cpp
+/*This program computes the dot product of two given vectors. */
+#include<iostream>
+using namespace std;
+struct vector1{
+int index, value;
+};
+int main(){
+
+    //Variable declarations
+    int n, product=0;
+    cout<<"Enter number of elements to be stored in the vectors A and B"<<endl;
+    cin>>n;
+    n+=1; // For storing extra [-1,-1] to specify the end of vector
+    vector1 A[n],B[n];
+
+    // Ask the user input for Vector A
+    for(int i=0;i<n-1;i++){
+        cout<<"Enter input for Vector A["<<i+1<<"] in ascending order"<<endl;
+        cout<<"Enter Index: "<<endl;
+        cin>>A[i].index;
+        cout<<"Enter Value: "<<endl;
+        cin>>A[i].value;
+
+    //Make sure index, value pair is not equal to zero.
+    while((A[i].index == 0) || (A[i].value ==0)){
+        cout<<"Please input only non-zero elements for both index and value pair for Vector A["<<i+1<<"]"<<endl;
+        cin>>A[i].index;
+        cin>>A[i].value;
+        }
+    }
+    //Saving [-1,-1] element in the last spot to specify the end of vector
+    A[n-1].index=-1;
+    A[n-1].value=-1;
+
+    cout<<"*******************************************"<<endl;
+
+    // Ask the user input for Vector B
+    for(int i=0;i<n-1;i++){
+        cout<<"Enter input for Vector B["<<i+1<<"] in ascending order"<<endl;
+        cout<<"Enter Index: "<<endl;
+        cin>>B[i].index;
+        cout<<"Enter Value: "<<endl;
+        cin>>B[i].value;
+
+    //Make sure index, value pair is not equal to zero.
+    while((B[i].index == 0) || (B[i].value ==0)){
+        cout<<"Please input only non-zero elements for both index and value pair for Vector B["<<i+1<<"]"<<endl;
+        cin>>B[i].index;
+        cin>>B[i].value;
+        }
+    }
+
+    //Saving [-1,-1] element in the last spot to specify the end of vector
+    B[n-1].index=-1;
+    B[n-1].value=-1;
+
+    cout<<"*******************************************"<<endl;
+    //Output original vectors A
+    cout<<"Vector A"<<endl;
+
+    for(int i=0;i<n-1;i++)
+    {
+        cout<<A[i].index<<"\t"<<A[i].value<<endl;
+    }
+
+    cout<<"*******************************************"<<endl;
+    //Output original vectors B
+    cout<<"Vector B"<<endl;
+    for(int i=0;i<n-1;i++)
+    {
+        cout<<B[i].index<<"\t"<<B[i].value<<endl;
+    }
+
+    //cout<<"before entering the while loop"<<endl;
+    //Calculate the vector product
+    int i=0,j=0;
+    while(A[i].index != -1 && B[j].index!=-1){
+        //cout<<"after entering the while loop"<<endl;
+        if(A[i].index == B[j].index){
+            product += A[i].value * B[j].value;
+            i++;
+            j++;
+        }
+        else if(A[i].index <B[j].index)
+            i++;
+        else
+            j++;
+    }
+    cout<<"*******************************************"<<endl;
+    cout<<"Vector product AB is "<<product;
+    cin.get();
+
+}
